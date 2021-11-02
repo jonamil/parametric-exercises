@@ -62,10 +62,10 @@ function draw() {
   }
 }
 
-function keyPressed() {
-  draw();
+function mousePressed() {
+  redraw();
 }
 
-function mousePressed() {
-  draw();
+function keyTyped() {
+  if (key === 's') save();
 }
