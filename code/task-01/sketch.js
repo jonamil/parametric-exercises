@@ -61,3 +61,11 @@ function draw() {
     pop();
   }
 }
+
+function keyPressed() {
+  draw();
+}
+
+function mousePressed() {
+  draw();
+}
