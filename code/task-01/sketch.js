@@ -1,6 +1,6 @@
 const canvasWidth = 400,
       canvasHeight = 400,
-      gridCells = 18,
+      gridCellCount = 18,
       gridDeviation = 3,
       gridPointSize = 2,
       objectCount = 2,
@@ -18,13 +18,13 @@ function draw() {
   background(random(360), 30, 30);
   fill(100);
 
-  for (w = 1; w < gridCells; w++) {
-    for (h = 1; h < gridCells; h++) {
+  for (let w = 1; w < gridCellCount; w++) {
+    for (let h = 1; h < gridCellCount; h++) {
       push();
 
       translate(
-        canvasWidth  / gridCells * w + random(-gridDeviation, gridDeviation),
-        canvasHeight / gridCells * h + random(-gridDeviation, gridDeviation)
+        width  / gridCellCount * w + random(-gridDeviation, gridDeviation),
+        height / gridCellCount * h + random(-gridDeviation, gridDeviation)
       );
       circle(0, 0, gridPointSize);
 
@@ -32,21 +32,21 @@ function draw() {
     }
   }
 
-  for (o = 1; o <= objectCount; o++) {    
+  for (let o = 1; o <= objectCount; o++) {
     push();
 
     translate(
-      canvasWidth  / (objectCount + 1) * o,
-      canvasHeight / (objectCount + 1) * o
+      width  / (objectCount + 1) * o,
+      height / (objectCount + 1) * o
     );
     rotate(floor(random(8)) * 45);
 
-    for (r = 4; r >= 0; r--) {
+    for (let r = 4; r >= 0; r--) {
       fill(random(360), random(200), random(200));
       circle(0, 0, ringWidth * r * 2 + ringWidth);
     }
 
-    for (r = 2; r >= 0; r--) {
+    for (let r = 2; r >= 0; r--) {
       fill(random(360), random(200), random(200));
       arc(
         0,
