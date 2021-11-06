@@ -24,6 +24,7 @@ function draw() {
   strokeWeight(noodleWeight);
 
   for (let n = 0; n < noodleCount; n++) {
+    background(backgroundColor[0], backgroundColor[1], backgroundColor[2], 0.5 / (noodleCount / 2));
     stroke(noodleColors[n][0], noodleColors[n][1], noodleColors[n][2]);
 
     beginShape();
