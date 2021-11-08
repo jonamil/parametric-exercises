@@ -1,7 +1,7 @@
 const canvasWidth = 400,
       canvasHeight = 400,
       circleRadius = 150,
-      decelerationFactor = 20000;
+      decelerationFactor = 1/20000;
 
 let noodleCount,
     noodleWeight,
@@ -24,14 +24,14 @@ function draw() {
   strokeWeight(noodleWeight);
 
   for (let n = 0; n < noodleCount; n++) {
-    background(backgroundColor[0], backgroundColor[1], backgroundColor[2], 0.5 / (noodleCount / 2));
+    background(backgroundColor[0], backgroundColor[1], backgroundColor[2], 1 / noodleCount);
     stroke(noodleColors[n][0], noodleColors[n][1], noodleColors[n][2]);
 
     beginShape();
 
     for (let v = 0; v < vertexCount; v++) {
       let angle = noise(
-        n / noodleCount * 256 + millis() / decelerationFactor,
+        n / noodleCount * 256 + millis() * decelerationFactor,
         v / (vertexCount * 2 - 2) * 256
       ) * 720;
 
@@ -40,7 +40,7 @@ function draw() {
 
       if (v > 0 && v < vertexCount - 1) {
         radius = noise(
-          n / noodleCount * 256 + millis() / decelerationFactor,
+          n / noodleCount * 256 + millis() * decelerationFactor,
           (vertexCount - 1 + v) / (vertexCount * 2 - 2) * 256
         ) * circleRadius * 1.15;
         outer = false;
@@ -70,7 +70,7 @@ function randomizeParameters() {
 
   backgroundColor = [random(360), 30, 30];
   noodleColors = [];
-  for (let l = 0; l < noodleCount; l++) {
-    noodleColors[l] = [random(360), random(30, 70), random(70, 100)];
+  for (let n = 0; n < noodleCount; n++) {
+    noodleColors[n] = [random(360), random(30, 70), random(70, 100)];
   }
 }
