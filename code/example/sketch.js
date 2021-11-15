@@ -1,8 +1,6 @@
-function setup() {
-  createCanvas(400, 400);
+function setup () {
+  createCanvas(sketchWidth, sketchHeight);
 }
 
 function draw() {
-  background(255);
 }
-
