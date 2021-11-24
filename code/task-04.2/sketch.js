@@ -1,12 +1,12 @@
-const canvasWidth = 500,
-      canvasHeight = 500,
+const canvasWidth = 400,
+      canvasHeight = 400,
       circleRadius = canvasWidth * 0.425,
       flowerCount = 4,
       repeatCount = 5,
       rotationCount = 1,
       vertexCount = 100,
-      angleRange = 20,
-      radiusRange = 15,
+      angleRange = 40,
+      radiusRange = canvasWidth * 0.06,
       grainEnabled = true,
       grainSize = 0.5;
 
@@ -30,7 +30,7 @@ function setup() {
     for (let x = 0; x < width; x += grainSize) {
       for (let y = 0; y < height; y += grainSize) {
         if (random() < 0.05) grain.fill(0, random(150, 200));
-        else grain.fill(0, random(40));
+        else grain.fill(0, random(35));
         
         grain.square(x, y, grainSize);
       }
@@ -57,8 +57,8 @@ function draw() {
 
       for (let v = 0; v <= vertexCount; v++) {
         addFlowerVertex(
-          v / vertexCount * rotationCount * 360 + random(-angleRange, angleRange),
-          (1 - f / flowerCount) * circleRadius + random(-radiusRange, radiusRange)
+          v / vertexCount * rotationCount * 360 + random(-angleRange / 2, angleRange / 2),
+          (1 - f / flowerCount) * circleRadius + random(-radiusRange / 2, radiusRange / 2)
         );
       }
 
