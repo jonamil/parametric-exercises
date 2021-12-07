@@ -2,6 +2,11 @@
 
 ## Parameters
 
+<video width="1920" height="1080" style="max-width:100%; height: auto;" controls>
+  <source src="https://fhp-video-hosting.s3.eu-central-1.amazonaws.com/07-3d-adv/parameters.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
 Similar to the various inputs in p5js, we can also create a list of inputs to helps us build parametric designs, that we can modify while rendering. To get started with inputs, we need to extend our boilerplat:
 
 ```js
@@ -59,6 +64,15 @@ const getParameterDefinitions = () => {
 
 ## Polygon
 
+<video width="1920" height="1080" style="max-width:100%; height: auto;" controls>
+  <source src="https://fhp-video-hosting.s3.eu-central-1.amazonaws.com/07-3d-adv/polygon-final.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
+```js
+const {polygon} = jscad.primitives;
+```
+
 The previous session introduced the simple 2D primitives like rectangle and circle. When we want to draw more complex shapes we can use the polygon function. Think of it as the p5js' vertex function for JSCAD:
 
 ```js
@@ -100,9 +114,18 @@ const poly = polygon({
 
 ## Expand & Offset
 
+```js
+const {expand, offset} = jscad.expansions;
+```
+
 In the last session we look at extrusion. Taking a shape and extending it along an axis. Another similar method is `expand` and `offset`.
 
 ### Offset
+
+<video width="1920" height="1080" style="max-width:100%; height: auto;" controls>
+  <source src="https://fhp-video-hosting.s3.eu-central-1.amazonaws.com/07-3d-adv/offset.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
 
 Offset can be used on 2D shapes. It simply offsets the outline by given delta. A negative delta shrinks the shape. For the corners three different types of offsets can be achieved:
 
@@ -130,6 +153,19 @@ const offsetShape1 = offset({
 
 ### Expand
 
+**Expand for 2D**
+<video width="1920" height="1080" style="max-width:100%; height: auto;" controls>
+  <source src="https://fhp-video-hosting.s3.eu-central-1.amazonaws.com/07-3d-adv/expand-2d.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
+**Expand for 3D**
+<video width="1920" height="1080" style="max-width:100%; height: auto;" controls>
+  <source src="https://fhp-video-hosting.s3.eu-central-1.amazonaws.com/07-3d-adv/expand-3d.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
+
 Expand has the same `effect` as `offset` for 3D shapes. It only offers the corner method `'round'`, but you can define the segments:
 
 <img src="./assets/segments.png" alt="" style="max-width:100%; display:block; margin: 0 auto;" />
@@ -145,6 +181,15 @@ const offsetShape1 = expand({
 
 ## Polyhedrons
 
+<video width="1920" height="1080" style="max-width:100%; height: auto;" controls>
+  <source src="https://fhp-video-hosting.s3.eu-central-1.amazonaws.com/07-3d-adv/vertices.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
+```js
+const {polyhedron} = jscad.primitives;
+```
+
 The last bodies we will discuss are the polyhedrons. But before a little bit of context on the construction and rendering of 3D objects. If you have used any 3D software or 3D rendered objects (e.g. in computer games), you will have noticed, if you get very close, the surfaces of objects are not very smooth, but consist of rough geometric shapes:
 
 <img src="./assets/starwars.png" alt="" style="max-width:100%; display:block; margin: 0 auto;" />
@@ -156,16 +201,21 @@ Even round shapes, when observed closely consist of segments. Today those segmen
 
 Why triangles? Triangles are the most simple shape and a triangle is always flat. You cannot bend a triangle. Think about a piece of paper. If you cut out a triangle, you can move each corner up and down, but the surface will always stay even. Do the same with a square. If you only move one corner and the other three stay the same, you will bend the piece of paper and, thereby, create two triangles. Having a flat surface is for example important when you calculate how light is reflect from that surface, or how the 3D printer should construct the surface.
 
+<video width="1920" height="1080" style="max-width:100%; height: auto;" controls>
+  <source src="https://fhp-video-hosting.s3.eu-central-1.amazonaws.com/07-3d-adv/polyhedron-applied.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
 When we want to build complex custom objects ourselves, we have to think in triangles and how to construct them. To achieve this we pass a list of points (vertices) and then a list of faces, each face is defined by the index of three points. The simplest version, a triangle:
 
 ```json
 {
-  points: [
+  "points": [
     [-10, -10, 0],
     [10, -10, 0],
     [10, 10, 0]
   ],
-  faces: [
+  "faces": [
     [0, 1, 2]
   ]
 }
@@ -175,13 +225,13 @@ A rectangle:
 
 ```json
 {
-  points: [
+  "points": [
     [-10, -10, 0],
     [10, -10, 0],
     [10, 10, 0],
     [-10, 10, 0]
   ],
-  faces: [
+  "faces": [
     [0, 1, 2],
     [2, 3, 1]
   ]
@@ -192,7 +242,7 @@ Notice that the above faces use the points multiple times. So instead of having 
 
 ```json
 {
-  points: [
+  "points": [
     [-10, -10, 0],
     [10, -10, 0],
     [10, 10, 0],
@@ -200,7 +250,7 @@ Notice that the above faces use the points multiple times. So instead of having 
     [-10, 10, 0],
     [-10, -10, 0]
   ],
-  faces: [
+  "faces": [
     [0, 1, 2],
     [3, 4, 5]
   ]
@@ -213,7 +263,18 @@ To make it even more tricky, the order of points needs to be clockwise if you lo
 
 This is a lot to take in, but it gives you the ultimate power over any 3D shape that you would like to create. Its usually best to start with a sketch and figuring out, how to best structure our faces:
 
+<video width="1920" height="1080" style="max-width:100%; height: auto;" controls>
+  <source src="https://fhp-video-hosting.s3.eu-central-1.amazonaws.com/07-3d-adv/3d-adv-example-1.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
+<img src="./assets/kreisel.png" alt="" style="max-width:100%; display:block; margin: 0 auto;" />
+
 ```js
+const jscad = require('@jscad/modeling');
+
+const {polyhedron} = jscad.primitives;
+
 function polar(radius, angle) {
   const rad = Math.PI / 180 * angle;
   const x = radius * Math.cos(rad);
@@ -221,45 +282,62 @@ function polar(radius, angle) {
   return {x, y};
 }
 
-const top = [0, 0, 5];
-const bottom = [0, 0, -5];
+const main = () => {
 
-const numPoints = 5;
-const radius = 4;
 
-const points = [top, bottom];
+  const height = 50;
 
-for (let p = 0; p < numPoints; p += 1) {
-  const point = polar(radius, 360 / numPoints * p);
-  points.push([point.x, point.y, 0]);
-}
+  const top = [0, 0, height];
+  const bottom = [0, 0, -height];
 
-const faces = [];
+  const numPoints = 5;
+  const radius = 4;
 
-for (let p = 0; p < numPoints; p += 1) {
-  // top
-  let p1 = p + 2;
-  let p2 = p + 3;
-  let p3 = 0;
-  if (p === numPoints - 1) {
-    p2 = 2;
+  const points = [top, bottom];
+
+  for (let p = 0; p < numPoints; p += 1) {
+    const point = polar(radius, 360 / numPoints * p);
+    points.push([point.x, point.y, 0]);
   }
-  faces.push([p1, p2, p3]);
 
-  // bottom
-  p3 = 1;
-  faces.push([p3, p2, p1]); 
-}
+  const faces = [];
 
-let shape = polyhedron({
-  points: points,
-  faces: faces,
-  orientation: 'outward'
-});
+  for (let p = 0; p < numPoints; p += 1) {
+    // top
+    let p1 = p + 2;
+    let p2 = p + 3;
+    let p3 = 0;
+    if (p === numPoints - 1) {
+      p2 = 2;
+    }
+    faces.push([p1, p2, p3]);
 
-return shape;
+    // bottom
+    p3 = 1;
+    faces.push([p3, p2, p1]); 
+  }
+
+  let shape = polyhedron({
+    points: points,
+    faces: faces,
+    orientation: 'outward'
+  });
+
+  return shape;
+};
+
+module.exports = { main };
 ```
+<img src="./assets/example-1.png" alt="" style="max-width:100%; display:block; margin: 0 auto;" />
 
+Here is another example which introduces some randomness to generate a rugged surface:
+
+<video width="1920" height="1080" style="max-width:100%; height: auto;" controls>
+  <source src="https://fhp-video-hosting.s3.eu-central-1.amazonaws.com/07-3d-adv/example-2.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
+<img src="./assets/wave.png" alt="" style="max-width:100%; display:block; margin: 0 auto;" />
 
 ```js
 const jscad = require('@jscad/modeling');
@@ -334,6 +412,10 @@ const main = () => {
 module.exports = { main };
 ```
 
+<img src="./assets/example-2.png" alt="" style="max-width:100%; display:block; margin: 0 auto;" />
+
+Last slightly more complex. Building upon the polar coordinate system, the following takes this a step further and introduces a spherical coodinate system. Generating points on a spherical surface and then connects those.
+
 ```js
 function polar(radius, angle) {
   const rad = Math.PI / 180 * angle;
@@ -391,5 +473,6 @@ let shape = polyhedron({
   orientation: 'outward'
 });
 ```
+<img src="./assets/example-3.png" alt="" style="max-width:100%; display:block; margin: 0 auto;" />
 
 
